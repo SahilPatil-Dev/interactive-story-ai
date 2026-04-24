@@ -13,22 +13,10 @@ class Settings(BaseSettings):
 
     ALLOWED_ORIGINS: List[str] = []
 
-    @field_validator("ALLOWED_ORIGINS", mode="before")
-    def parse_allowed_origins(cls, v):
-        if not v:
-            return []
-
-        if isinstance(v, str):
-            if v.strip() == "*":
-                return ["*"]
-
-        return [origin.strip() for origin in v.split(",") if origin.strip()]
-
-        if isinstance(v, list):
-            return v
-
-        raise ValueError("Invalid ALLOWED_ORIGINS format")
-
+    @field_validator("ALLOWED_ORIGINS")
+    def parse_allowed_origins(cls, v: str) -> List[str]:
+        return v.split(",") if v else []
+    
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
