@@ -1,25 +1,28 @@
 from pydantic import field_validator
 from pydantic_settings import BaseSettings
 from typing import List
+
+
 class Settings(BaseSettings):
     API_PREFIX: str = "/api"
     DEBUG: bool = False
-    
-    DATABASE_URL: str
-    
-    ALLOWED_ORIGINS: str = ""
 
+    DATABASE_URL: str
     GOOGLE_API_KEY: str
-    
     SECRET_KEY: str
 
-    @field_validator("ALLOWED_ORIGINS")
-    def parse_allowed_origins(cls, v: str) -> List[str]:
-        return v.split(",") if v else []
-    
+    ALLOWED_ORIGINS: List[str] = []
+
+    @field_validator("ALLOWED_ORIGINS", mode="before")
+    def parse_allowed_origins(cls, v):
+        if isinstance(v, str):
+            return v.split(",")
+        return v
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
         case_sensitive = True
-        
+
+
 settings = Settings()
