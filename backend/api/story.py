@@ -84,11 +84,11 @@ def get_complete_story(
     
     story = db.query(Story).filter(Story.id == story_id).first()
 
-    if story.user_id != current_user.id:
-        raise HTTPException(status_code=403, detail="Not authorized")
-
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
+
+    if story.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized")
 
     complete_story = build_complete_story_tree(db, story)
 
