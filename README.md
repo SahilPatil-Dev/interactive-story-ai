@@ -2,6 +2,10 @@
 
 An end-to-end full-stack application that generates **interactive "Choose Your Own Adventure" stories** using an asynchronous backend architecture and a modern React frontend.
 
+## 🌐 Live Demo
+
+👉 [Click here to try the app](https://interactive-story-ai-git-main-sahil-patils-projects-953b75c3.vercel.app/)
+
 ---
 
 ## 🌟 Overview
