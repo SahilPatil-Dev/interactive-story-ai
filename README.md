@@ -1,168 +1,133 @@
-# 🚀 Interactive Story AI
+# 📰 Interactive Story AI
 
-An end-to-end full-stack application that generates **interactive "Choose Your Own Adventure" stories** using an asynchronous backend architecture and a modern React frontend.
-
-## 🌐 Live Demo
-
-👉 [Click here to try the app](https://interactive-story-ai-git-main-sahil-patils-projects-953b75c3.vercel.app/)
+Interactive Story AI is a full-stack web application that generates dynamic, branching “choose-your-own-adventure” stories using large language models. It combines modern backend architecture with AI-driven content generation to deliver an interactive storytelling experience.
 
 ---
 
 ## 🌟 Overview
 
-Interactive Story AI allows users to:
+This project demonstrates how to integrate LLM-based content generation into a scalable web application. Users can create stories based on a theme, and the system asynchronously generates a structured story tree with multiple paths and endings.
 
-* 🔐 Register & authenticate securely (JWT-based auth)
-* 🎮 Generate dynamic AI-powered stories
-* 🔄 Experience asynchronous story generation (job queue pattern)
-* 🌳 Navigate story paths through interactive decision trees
-* ⚡ Enjoy a smooth, modern UI with Apple-inspired glass design
+The application is designed with a clear separation of concerns across backend services, database models, and frontend components.
 
 ---
 
-## 🧠 Architecture
+## ✨ Key Features
 
-This project follows a **production-level architecture**:
-
-```text
-Frontend (React + Vite + Tailwind)
-        ↓
-Backend API (FastAPI)
-        ↓
-PostgreSQL Database
-        ↓
-Async Job Processing (Polling-based)
-```
+* **AI-Generated Stories**: Generates structured, multi-path stories using Google Gemini via LangChain.
+* **Asynchronous Processing**: Story creation runs in the background with job tracking and status polling.
+* **Authentication System**: Secure user registration and login using JWT-based authentication.
+* **Interactive Story Flow**: Stories are stored as tree structures, allowing users to navigate choices dynamically.
+* **Full-Stack Architecture**: Clean separation between API, services, and frontend logic.
 
 ---
 
 ## ⚙️ Tech Stack
 
-### 🔹 Frontend
+### Backend
+* **FastAPI**
+* **SQLAlchemy ORM**
+* **PostgreSQL**
+* **LangChain + Google Gemini API**
+* **JWT Authentication**
 
-* React (Vite)
-* Tailwind CSS (Glass UI Design)
-* React Router
-* Axios
+### Frontend
+* **React (Vite)**
+* **Custom Hooks**
+* **REST API integration**
 
-### 🔹 Backend
+---
 
-* FastAPI
-* SQLAlchemy
+## 🏗️ Architecture
+
+The backend follows a layered architecture:
+* `api/` → HTTP routes
+* `services/` → business logic
+* `models/` → database models
+* `schemas/` → request/response validation
+* `core/` → config, auth, security
+* `db/` → database setup
+
+The frontend is organized by features:
+* `api/` → API client
+* `auth/` → authentication logic
+* `components/` → reusable UI
+* `hooks/` → custom hooks
+* `pages/` → application screens
+
+---
+
+## 🧩 How It Works
+
+1.  User submits a story theme.
+2.  Backend creates a story job.
+3.  Background task invokes the LLM.
+4.  Response is parsed into a structured format.
+5.  Story is stored as nodes in the database.
+6.  Frontend polls job status and renders the story.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+* Python 3.10+
+* Node.js 18+
 * PostgreSQL
-* JWT Authentication
-* Async Job Processing (Polling)
-
-### 🔹 Deployment
-
-* Backend: Render
-* Frontend: Vercel
+* Google API Key (Gemini)
 
 ---
 
-## 🔐 Features
+**Create a .env file:**
 
-### ✅ Authentication
-
-* User registration & login
-* JWT-based authentication
-* Protected routes
-
-### 🎮 Story Engine
-
-* Dynamic story generation via API
-* Tree-based story structure
-* Multiple endings (winning / losing)
-
-### 🔄 Async Processing
-
-* Story creation runs as background job
-* Job polling system for status tracking
-* Prevents blocking API calls
-
-### 🎨 UI/UX
-
-* Apple-style glassmorphism design
-* Smooth transitions & animations
-* Typewriter text effect
-* Responsive layout
-
-### ⚠️ Error Handling
-
-* 422 validation error handling
-* 404 "Not Found" animation UI
-* Global API error normalization
+DATABASE_URL=postgresql://user:password@localhost/db_name
+SECRET_KEY=your_secret_key
+GOOGLE_API_KEY=your_google_api_key
 
 ---
 
-## 📦 API Endpoints
-
-### 🔐 Auth
-
-* `POST /api/auth/register`
-* `POST /api/auth/login`
-
-### 📖 Stories
-
-* `POST /api/stories/create`
-* `GET /api/stories/{id}/complete`
-
-### 🔄 Jobs
-
-* `GET /api/jobs/{job_id}`
+## 📡 API Endpoints
+### Authentication
+ * POST /auth/register
+ * POST /auth/login
+### Stories
+ * POST /stories/create
+ * GET /stories/{story_id}/complete
+### Jobs
+ * GET /jobs/{job_id}
 
 ---
 
-## 📁 Project Structure
-
-backend/
-  ├── api/
-  ├── core/
-  ├── db/
-  ├── models/
-  ├── schemas/
-  ├── services/
-  └── main.py
-
-frontend/
-  ├── components/
-  ├── hooks/
-  ├── pages/
-  ├── api/
-  └── auth/
-  └── app.jsx
-
+## 🔧 Design Highlights
+ * Decoupled business logic via service layer
+ * Schema validation using Pydantic
+ * Tree-based data modeling for story branching
+ * Background job pattern for AI tasks
+ * Reusable frontend hooks for state management
 
 ---
 
-## 🔥 Key Concepts Demonstrated
-
-* Clean Architecture (Separation of Concerns)
-* Async Processing with Job Queue Pattern
-* JWT Authentication Flow
-* API Error Normalization
-* React Custom Hooks for Logic Isolation
-* Component-Based UI System
-* Production Deployment Pipeline
-
----
-
-## 🧪 Future Improvements
-
-* Replace polling with WebSockets or Redis queue
-* Add Lottie animations for UI polish
-* Implement user story history dashboard
-* Add caching (Redis)
-* AI model customization
+## 🔮 Future Improvements
+ * Introduce **Celery + Redis** for distributed task processing.
+ * Add refresh token flow for authentication.
+ * Implement rate limiting and quotas.
+ * Add real-time updates (**WebSockets**).
+ * Improve UI/UX and story visualization.
 
 ---
 
 ## 👨‍💻 Author
-
-**Sahil Patil**
+Developed by Sahil Patil as a full-stack AI project showcasing backend architecture, async processing, and LLM integration.
 
 ---
 
-## ⭐ If you like this project
+## 📜 Acknowledgments
+ * FastAPI
+ * React
+ * LangChain
+ * Google Generative AI
 
-Give it a star ⭐ and feel free to fork!
+---
+
+## ⭐ Support
+If you like this project, consider giving it a star ⭐ on GitHub!
